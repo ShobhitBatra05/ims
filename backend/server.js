@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
-// const authRoutes = require('./routes/authRoutes');
+const authRoutes = require('./routes/authRoutes');
 // const dashboardRoutes = require('./routes/dashboardRoutes');
 // const userRoutes = require('./routes/userRoutes');
 // const productRoutes = require('./routes/productRoutes');
@@ -26,7 +26,7 @@ app.use(express.json());
 
 
 // Use routes
-// app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 // app.use('/api/dashboard', dashboardRoutes);
 // app.use('/api/users', userRoutes);
 // app.use('/api/products', productRoutes);
