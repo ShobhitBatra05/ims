@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
-import ProtectedRoute from './components/ProtectedRoute';
-import RegisterPage from './pages/RegisterPage'
-import LoginPage from './pages/LoginPage'
-import AdminPage from './pages/AdminPage';
-import EmployeePage from './pages/EmployeePage';
-import SupplierPage from './pages/SupplierPage';
-import Unauthorized from './pages/Unauthorized';
+import ProtectedRoute from './components/helpers/ProtectedRoute';
+import RegisterPage from './pages/AuthPages/RegisterPage'
+import LoginPage from './pages/AuthPages/LoginPage'
+import EmployeePage from './pages/EmployeePages/EmployeePage';
+import SupplierPage from './pages/SupplierPages/SupplierPage';
+import Unauthorized from './pages/AuthPages/Unauthorized';
 import { AuthContext } from './context/AuthContext';
+import AdminRoutes from './routes/AdminRoutes';
 
 
 
@@ -32,18 +32,10 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path='/unauthorized' element={<Unauthorized />} />
 
+        {/* Admin routes */}
+        <Route path="/*" element={<AdminRoutes />} />
 
-        {/* Use ProtectedRoute to protect routes */}
-        <Route
-                path="/admin"
-                element={
-                    <ProtectedRoute
-                        element={<AdminPage />}
-                        allowedRoles={['Admin']}
-                        userRole={userRole}
-                    />
-                }
-            />
+
             <Route
                 path="/employee"
                 element={

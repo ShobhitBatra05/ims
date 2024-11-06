@@ -3,12 +3,11 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
-// const dashboardRoutes = require('./routes/dashboardRoutes');
-// const userRoutes = require('./routes/userRoutes');
-// const productRoutes = require('./routes/productRoutes');
-// const supplierRoutes = require('./routes/supplierRoutes');
-// const purchaseOrderRoutes = require('./routes/purchaseOrderRoutes');
-// const invoiceRoutes = require('./routes/invoiceRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
+const userRoutes = require('./routes/userRoutes');
+const productRoutes = require('./routes/productRoutes');
+const supplierRoutes = require('./routes/supplierRoutes');
+
 
 dotenv.config();
 
@@ -27,12 +26,11 @@ app.use(express.json());
 
 // Use routes
 app.use('/api/auth', authRoutes);
-// app.use('/api/dashboard', dashboardRoutes);
-// app.use('/api/users', userRoutes);
-// app.use('/api/products', productRoutes);
-// app.use('/api/suppliers', supplierRoutes);
-// app.use('/api/purchase-orders', purchaseOrderRoutes);
-// app.use('/api/invoices', invoiceRoutes);
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/suppliers', supplierRoutes);
+
 
 //Test Route
 app.get('/', (req, res) => {

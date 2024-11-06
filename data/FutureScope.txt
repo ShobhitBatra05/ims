@@ -1,0 +1,19 @@
+1) Pagination for showing limited records on single page
+
+2) Search and Filter Functionalities 
+
+3) Cards on Customer Panel to show products and add to cart functionality to add products in that
+
+4) Payment Integration
+
+5)
+
+
+<td className="py-2 px-4">
+                  <button
+                    onClick={() => handleStatusToggle(user._id, user.isActive)}
+                    className={`px-2 py-1 rounded ${user.isActive ? 'bg-green-500' : 'bg-red-500'} text-white`}
+                  >
+                    {user.isActive ? 'Active' : 'Inactive'}
+                  </button>
+                </td>

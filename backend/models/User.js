@@ -19,6 +19,18 @@ const userSchema = new mongoose.Schema({
         enum: ['Admin', 'Employee', 'Supplier'], 
         required: true 
     },
+    address: {
+        type: String,
+        required: function() {
+          return this.role === 'Supplier'; // Only required for suppliers
+        }
+    },
+    phone: {
+        type: String,
+        required: function() {
+          return this.role === 'Supplier' ;// Only required for suppliers
+        }
+    },
     isAuthenticated : {
         type:Boolean,
         default:false,
@@ -29,3 +41,16 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
+
+
+
+
+
+
+
+
+
+
+
+
+

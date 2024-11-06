@@ -5,7 +5,21 @@ const jwt = require('jsonwebtoken');
 // User Registration
 exports.registerUser = async (req, res) => {
 
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, address, phone } = req.body;
+    console.log(req.body)
+
+    // Check required fields based on role
+    if (!name || !email || !password || !role) {
+        return res.status(400).json({ message: "Name, email, password, and role are required." });
+    }
+
+    if (role === 'Supplier' && (!address || !phone)) {
+        console.log(address,phone)
+        console.log("why")
+        return res.status(400).json({ message: "Address and Phone no. are required for suppliers." });
+    }
+
+ 
 
     try {
 
@@ -16,10 +30,11 @@ exports.registerUser = async (req, res) => {
         }
 
         // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
         // Create a new user
-        const newUser = new User({ name, email, password: hashedPassword, role });
+        const newUser = new User({ name, email, password: hashedPassword, role,...(role === 'Supplier' && { address, phone }), }); // Include address and phone if supplier
 
         // Save the user to the database
         await newUser.save();
