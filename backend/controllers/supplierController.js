@@ -1,76 +1,79 @@
-const Product = require('../models/Product');
 const User = require('../models/User');
 
+// Create a new supplier
 exports.addSupplier = async (req, res) => {
-    const { name, contactInfo, products } = req.body;
-    console.log(req.body)
-
     try {
-        // Check if all product IDs are valid
-        // const existingProducts = await Product.find({ _id: { $in: products } });
-
-        // if (existingProducts.length !== products.length) {
-        //     return res.status(400).json({ message: 'Some product IDs are invalid' });
-        // }
-
-        // Create the supplier
-        const supplier = new User({
-            name,
-            contactInfo,
-            products
-        });
-
-        await supplier.save();
-        res.status(201).json(supplier);
+      const { name, email, password, address, phone } = req.body;
+  
+      // Ensure role is set as 'Supplier'
+      const supplier = new User({
+        name,
+        email,
+        password,
+        role: 'Supplier',
+        address,
+        phone
+      });
+  
+      await supplier.save();
+      res.status(201).json({ message: 'Supplier created successfully', supplier });
     } catch (error) {
-        res.status(500).json({ error: 'Error creating supplier', message: error.message });
+      res.status(400).json({ error: error.message });
     }
-};
+  };
 
 
 // Get all suppliers
 exports.getAllSuppliers = async (req, res) => {
     try {
         const suppliers = await User.find({role : "Supplier"});
-        console.log("sup:",suppliers)
+        console.log("sup",suppliers)
         res.status(200).json(suppliers);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching suppliers' });
     }
 };
-// Update a supplier
+
+
+// Update a supplier by ID
 exports.updateSupplier = async (req, res) => {
-    const { id } = req.params;
-    const { name, phone, products } = req.body;
-    console.log(req.body)
+  try {
+    const { name, email, address, phone } = req.body;
+    const supplier = await User.findById(req.params.id);
 
-    try {
-        const updatedSupplier = await Supplier.findByIdAndUpdate(id, { name, contactInfo, products }, { new: true });
-        res.json(updatedSupplier);
-    } catch (error) {
-        res.status(500).json({ error: 'Error updating supplier' });
+    if (!supplier || supplier.role !== 'Supplier') {
+      return res.status(404).json({ error: 'Supplier not found' });
     }
+
+    // Update fields
+    if (name) supplier.name = name;
+    if (email) supplier.email = email;
+    if (address) supplier.address = address;
+    if (phone) supplier.phone = phone;
+
+    await supplier.save();
+    res.status(200).json({ message: 'Supplier updated successfully', supplier });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
-// Delete a supplier
+
+
+// Delete a supplier by ID
 exports.deleteSupplier = async (req, res) => {
-    const { id } = req.params;
-
     try {
-        await Supplier.findByIdAndDelete(id);
-        res.json({ message: 'Supplier deleted' });
+      const supplier = await User.findById(req.params.id);
+  
+      if (!supplier || supplier.role !== 'Supplier') {
+        return res.status(404).json({ error: 'Supplier not found' });
+      }
+  
+      await supplier.remove();
+      res.status(200).json({ message: 'Supplier deleted successfully' });
     } catch (error) {
-        res.status(500).json({ error: 'Error deleting supplier' });
+      res.status(500).json({ error: error.message });
     }
-};
+  };
 
 
-// exports.topSuppliers= async (req, res) => {
-//     try {
-//       const topSuppliers = await Supplier.find().limit(3).populate('products'); // Assuming you populate products
-//       console.log(topSuppliers)
-//       res.json(topSuppliers);
-//     } catch (error) {
-//       res.status(500).json({ message: 'Server error' });
-//     }
-// };

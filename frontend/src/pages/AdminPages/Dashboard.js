@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../../components/AdminComponents/Card';
 import { getDashboardData } from '../../services/dashboardService';
-// import TopSuppliers from '../../components/AdminComponents/TopSuppliers';
 import ProductStockChart from '../../components/AdminComponents/ProductStockChart';
 
 

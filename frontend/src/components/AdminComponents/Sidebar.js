@@ -12,7 +12,7 @@ const Sidebar = () => {
     <div className='h-screen bg-gray-800 text-white md:overflow-hidden overflow-auto md:hover:overflow-auto'>
           <div className="flex justify-between items-center mt-[1.4rem]">
             <div>
-            <Link to="/admin" className="items-center ml-3 gap-3 flex text-xl font-bold tracking-tight">
+            <Link to="/admin/dashboard" className="items-center ml-3 gap-3 flex text-xl font-bold tracking-tight">
               < MdOutlineInventory/> <span>Inventory Management</span>
             </Link>
             </div>

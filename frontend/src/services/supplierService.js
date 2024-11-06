@@ -5,6 +5,7 @@ const API_URL = 'http://localhost:8000/api/suppliers';
 export const fetchSuppliers = async () => {
   try {
     const response = await axios.get(API_URL);
+    console.log("res",response.data)
     return response.data;
   } catch (error) {
     console.error('Error fetching suppliers:', error);
@@ -54,13 +55,4 @@ export const deleteSupplier = async (supplierId) => {
     }
   };
 
-  // export const topSuppliers = async () => {
-  //   try {
-  //     const response = await axios.get(`${API_URL}/top`);
-  //     console.log(response)
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error('Error fetching top suppliers:', error);
-  //     throw error;
-  //   }
-  // };
+ 

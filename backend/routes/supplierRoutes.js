@@ -15,7 +15,6 @@ router.put('/:id', updateSupplier);
 // Delete a supplier
 router.delete('/:id', deleteSupplier);
 
-// router.get('/top', topSuppliers);
 
 
 module.exports = router;

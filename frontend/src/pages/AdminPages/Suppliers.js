@@ -8,13 +8,13 @@ const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedSupplier, setSelectedSupplier] = useState(null);
-  const [formData, setFormData] = useState({ name: '', contactInfo: '', products: '' });
+  const [formData, setFormData] = useState({ name: '', phone:'', address: '' });
 
   useEffect(() => {
     // Use service to fetch Suppliers
     const loadSuppliers = async () => {
       const data = await fetchSuppliers();
-      console.log(data)
+      console.log("data",data)
       setSuppliers(data);
     };
     loadSuppliers();
@@ -22,13 +22,13 @@ const Suppliers = () => {
 
   const handleAddSupplier = () => {
     setSelectedSupplier(null);
-    setFormData({ name: '', contactInfo: '', products: '' });
+    setFormData({ name: '', phone: '', address: '' });
     setShowModal(true);
   };
 
   const handleEditSupplier = (supplier) => {
     setSelectedSupplier(supplier);
-    setFormData({ name: supplier.name, contactInfo: supplier.contactInfo, products: supplier.products });
+    setFormData({ name: supplier.name, phone: supplier.phone, address: supplier.address });
     setShowModal(true);
   };
 
@@ -73,8 +73,8 @@ const Suppliers = () => {
         <thead>
           <tr>
             <th className="py-2 px-4 bg-gray-200 text-left text-xs font-bold uppercase">Supplier Name</th>
-            <th className="py-2 px-4 bg-gray-200 text-left text-xs font-bold uppercase">Contact Info</th>
-            <th className="py-2 px-4 bg-gray-200 text-left text-xs font-bold uppercase">Products</th>
+            <th className="py-2 px-4 bg-gray-200 text-left text-xs font-bold uppercase">Phone No.</th>
+            <th className="py-2 px-4 bg-gray-200 text-left text-xs font-bold uppercase">Address</th>
             <th className="py-2 px-4 bg-gray-200 text-left text-xs font-bold uppercase">Actions</th>
           </tr>
         </thead>
@@ -82,8 +82,8 @@ const Suppliers = () => {
           {suppliers.map((supplier) => (
             <tr key={supplier._id}>
               <td className="py-2 px-4">{supplier.name}</td>
-              <td className="py-2 px-4">{supplier.contactInfo}</td>
-              <td className="py-2 px-4">{supplier.products.length}</td>
+              <td className="py-2 px-4">{supplier.phone}</td>
+              <td className="py-2 px-4">{supplier.address}</td>
               <td className="py-2 px-4">
                 <button
                   className="bg-yellow-500 text-white px-3 py-1 rounded mr-2"
@@ -120,22 +120,22 @@ const Suppliers = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block mb-1">Contact Info</label>
+                <label className="block mb-1">Phone Number</label>
                 <input
                   type="text"
                   name="contactInfo"
-                  value={formData.contactInfo}
+                  value={formData.phone}
                   onChange={handleChange}
                   className="border rounded w-full px-3 py-2"
                   required
                 />
               </div>
               <div className="mb-4">
-                <label className="block mb-1">Products</label>
+                <label className="block mb-1">Address</label>
                 <input
                   type="text"
                   name="products"
-                  value={formData.products}
+                  value={formData.address}
                   onChange={handleChange}
                   className="border rounded w-full px-3 py-2"
                   required
